@@ -58,7 +58,7 @@ users 변수는 users.js 파일을 require 한 거야 옥희?
 오키
 */
 router.use('/users', users);
-router.use('/pillinfos', pillinfos);
+router.use('/pillInfos', pillinfos);
 
 
 /*

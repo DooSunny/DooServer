@@ -44,7 +44,7 @@ var auth = function (req, res, next) {
     return res.status(403).json({ error: 'No credentials sent!' });
   }
 
-  sequelize.models.users.findOne({
+  sequelize.models.Users.findOne({
     where: {
       code: req.headers.authorization
     }
@@ -60,7 +60,7 @@ var auth = function (req, res, next) {
   });
 }
 
-// app.use(auth);
+app.use(auth);
 
 //
 // ─── EXPRESS CONFIGURATION ──────────────────────────────────────────────────────
@@ -147,3 +147,16 @@ function demo() {
   });  
 }
 
+setInterval(function() {
+  var time = moment(sequelize.models.PillInfo.time)
+  if(time < Date.now()) {
+    console.log("true")
+  }
+}, 1000);
+
+// function send(){
+//   sequelize.models.pillInfo
+//   .findAll({
+//     where: 
+//   })
+// }
