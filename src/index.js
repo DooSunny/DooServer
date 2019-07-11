@@ -1,3 +1,4 @@
+
 /*
 
 보여???
@@ -151,17 +152,11 @@ function demo() {
 
 setInterval(function() {
   var u_time = moment(sequelize.models.PillInfo.time)
-<<<<<<< HEAD
+  
   var date_time = moment(Date.now)
   if(u_time.hour <= date_time.hour && u_time.minute <= date_time.minute) {
     request('0.0.0.0:6525/yak', function (error, response, body) {
       //callback
-=======
-  var date_time = moment(Date.now())
-  if(u_time.hour() <= date_time.hour() && u_time.minute() <= date_time.minute()) {
-    request('http://www.google.com', function (error, response, body) {
-  //callback
->>>>>>> 335a9005224e082de3423a779a64b503eb6e151b
     });
   }
 }, 1000);
