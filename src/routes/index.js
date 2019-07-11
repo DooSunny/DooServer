@@ -4,6 +4,7 @@ const { sequelize } = require('../models');
 
 const router = Router();
 const users = require('./users');
+const pillinfos = require('./pillinfos');
 
 // 이게 API 라우트야. 아래의 링크로 들어오면, 함수를 실행하는데, 밑에 보면 use 라는게 있어.
 // ─── API ROUTES ──────────────────────────────────────────────────────
@@ -57,6 +58,8 @@ users 변수는 users.js 파일을 require 한 거야 옥희?
 오키
 */
 router.use('/users', users);
+router.use('/pillinfos', pillinfos);
+
 
 /*
   그럼 만약에 약 라우터를 만들었다.
