@@ -7,7 +7,6 @@ const pillinfos = require('./pillinfos');
 
 // router.get('/', function(req, res) { // return 
 //     sequelize.models.pillinfos
-//     .find({
 //         where: {
 //             code: req.params.code
 //         },
