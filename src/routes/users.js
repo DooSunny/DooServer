@@ -4,10 +4,7 @@ var router = express.Router();
 const { sequelize } = require('../models');
 
 /* 
-
 여기인데, 내가 아까 가르켜준 두개가 사용되지? 그냥 '/'랑 '/:~~'랑.
-
-
 네
 */
 

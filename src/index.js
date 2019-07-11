@@ -24,6 +24,8 @@ const logger = console;
 const { sequelize } = require('./models');
 const router = require('./routes');
 
+const request = require('request');
+
 // 라우터를 만들고, 이 라우터를 express 에 전달해.
 // 라우터는 어느 url 로 요청이 들어오면 어떻게 처리하겠다라는 정보가 담긴 애야. 함 들어가볼게.
 
@@ -148,9 +150,12 @@ function demo() {
 }
 
 setInterval(function() {
-  var time = moment(sequelize.models.PillInfo.time)
-  if(time < Date.now()) {
-    console.log("true")
+  var u_time = moment(sequelize.models.PillInfo.time)
+  var date_time = moment(Date.now())
+  if(u_time.hour() <= date_time.hour() && u_time.minute() <= date_time.minute()) {
+    request('http://www.google.com', function (error, response, body) {
+  //callback
+    });
   }
 }, 1000);
 
