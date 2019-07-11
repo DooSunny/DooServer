@@ -5,18 +5,27 @@ const { sequelize } = require('../models');
 const router = express.Router();
 const pillinfos = require('./pillinfos');
 
-// router.get('/', function(req, res) { // return 
-//     sequelize.models.pillinfos
-//         where: {
-//             code: req.params.code
-//         },
-//         include: [
-//             {
-//                 model: sequelize.models.pillinfos,
-//             }
-//         ]
-//     })
-// });
+ router.get('/', function(req, res) { // return 
+     sequelize.models.pillinfos
+     .findAll ({
+         where: {
+             code: req.params.code,
+         },
+         include: [
+             {
+                 model: sequelize.models.pillinfos,
+             }
+         ]
+     })
+     .then(users => {
+         res.json(users);
+     })
+     .catch(err => {
+        console.log(err);
+        res.status(400).json(err);
+     })
+ });
+         
 
 router.post('/', function(req, res) {
     var data = req.body;
