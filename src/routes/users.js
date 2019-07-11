@@ -13,7 +13,7 @@ const { sequelize } = require('../models');
 
 // 그렇다면 이 라우터는 어떤 역할을 하고 
 // 유저가 접속했는지?
-router.get('/', function(req, res) {
+router.get('/', function(req, res) { 
   sequelize.models.Users
     .findAll({
       include: [
