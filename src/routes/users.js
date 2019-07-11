@@ -15,6 +15,32 @@ router.get('/', function(req, res) {
     .findAll({
       include: [
         {
+          model: sequelize.models.Users,
+          as: 'favorites',
+          include: [
+            {
+              model: sequelize.models.PillHistories,
+              include: [
+                {
+                  model: sequelize.models.PillInfo,
+                  as: 'morning',
+                },
+                {
+                  model: sequelize.models.PillInfo,
+                  as: 'lunch',
+                },
+                {
+                  model: sequelize.models.PillInfo,
+                  as: 'dinner',
+                },
+              ]
+            },
+            {
+              model: sequelize.models.PillInfo
+            }
+          ]
+        },
+        {
           model: sequelize.models.PillHistories,
           include: [
             {
@@ -30,6 +56,9 @@ router.get('/', function(req, res) {
               as: 'dinner',
             },
           ]
+        },
+        {
+          model: sequelize.models.PillInfo
         }
       ]
     }) // <- 이게 무슨 역할을 할까? 모든 유저를 찾는역할처럼 보여여  - 빙고 그렇다면
@@ -75,6 +104,32 @@ router.get('/:code', function(req, res) {
       },
       include: [
         {
+          model: sequelize.models.Users,
+          as: 'favorites',
+          include: [
+            {
+              model: sequelize.models.PillHistories,
+              include: [
+                {
+                  model: sequelize.models.PillInfo,
+                  as: 'morning',
+                },
+                {
+                  model: sequelize.models.PillInfo,
+                  as: 'lunch',
+                },
+                {
+                  model: sequelize.models.PillInfo,
+                  as: 'dinner',
+                },
+              ]
+            },
+            {
+              model: sequelize.models.PillInfo
+            }
+          ]
+        },
+        {
           model: sequelize.models.PillHistories,
           include: [
             {
@@ -90,6 +145,9 @@ router.get('/:code', function(req, res) {
               as: 'dinner',
             },
           ]
+        },
+        {
+          model: sequelize.models.PillInfo
         }
       ]
     })

@@ -26,6 +26,7 @@ const { sequelize } = require('./models');
 const router = require('./routes');
 
 const request = require('request');
+const moment = require('moment');
 
 // 라우터를 만들고, 이 라우터를 express 에 전달해.
 // 라우터는 어느 url 로 요청이 들어오면 어떻게 처리하겠다라는 정보가 담긴 애야. 함 들어가볼게.
@@ -44,7 +45,7 @@ const app = express();
 //
 var auth = function (req, res, next) {
   if (!req.headers.authorization) {
-    return res.status(403).json({ error: 'No credentials sent!' });
+    // return res.status(403).json({ error: 'No credentials sent!' });
   }
 
   sequelize.models.Users.findOne({
@@ -56,10 +57,12 @@ var auth = function (req, res, next) {
       req.user = user;
       next();
     } else {
-      return res.status(403).json({ error: 'No users founded!'});
+      // return res.status(403).json({ error: 'No users founded!'});
+      next();
     }
   }).catch((err) => {
-    return res.status(403).json({ error: 'No users founded!'});
+    next();
+    // return res.status(403).json({ error: 'No users founded!'});
   });
 }
 
@@ -122,26 +125,36 @@ function demo() {
     code: makeid(7), 
     name: '김대용', 
     profilePictureUri:'https://scontent-icn1-1.xx.fbcdn.net/v/t1.0-9/32508762_606806973014817_9098627413276884992_o.jpg?_nc_cat=101&_nc_oc=AQm3rfLuQFqNXWTwzKesqM860EJMhtOTraxwhypoUE9-qU2t9z8I3liU9CF7_NEFcDk&_nc_ht=scontent-icn1-1.xx&oh=95bb70124ab9a7e5f4869b16316b3c74&oe=5D79DE07'
-  }).then(function(user) {
+  }).then(function(user1) {
     logger.info('Inserted!');
-    logger.info(user);
+    logger.info(user1);
 
-    sequelize.models.PillInfo.create({
-      time: new Date(),
-      pillNumber: 10,
-      remainEat: 5,
-      code: user.code,
-    }).then(function (pillInfo) {
-      logger.info(pillInfo);
-      sequelize.models.PillHistories.create({
+    sequelize.models.Users.create({
+      code: makeid(7), 
+      name: '예두해', 
+      profilePictureUri:"https://miro.medium.com/max/1200/1*ilC2Aqp5sZd1wi0CopD1Hw.png",
+    }).then(function (user2) {
+      user1.addFavorites(user2);
+
+      sequelize.models.PillInfo.create({
         time: new Date(),
-        morningPill: pillInfo.idx,
-        lunchPill: pillInfo.idx,
-        dinnerPill: pillInfo.idx,
-        code: user.code,
-      }).then(function (pillHistories) {
-        logger.info(pillHistories);
+        pillNumber: 10,
+        remainEat: 5,
+        code: user1.code,
+      }).then(function (pillInfo) {
+        logger.info(pillInfo);
+        sequelize.models.PillHistories.create({
+          time: new Date(),
+          morningPill: pillInfo.idx,
+          lunchPill: pillInfo.idx,
+          dinnerPill: pillInfo.idx,
+          code: user1.code,
+        }).then(function (pillHistories) {
+          logger.info(pillHistories);
+        })
       })
+    }).catch(function (err) {
+      logger.error(err);
     })
   }).catch(function(err) {
     //TODO: error handling
@@ -150,16 +163,16 @@ function demo() {
   });  
 }
 
-setInterval(function() {
-  var u_time = moment(sequelize.models.PillInfo.time)
+// setInterval(function() {
+//   var u_time = moment(sequelize.models.PillInfo.time)
   
-  var date_time = moment(Date.now)
-  if(u_time.hour <= date_time.hour && u_time.minute <= date_time.minute) {
-    request('0.0.0.0:6525/yak', function (error, response, body) {
-      //callback
-    });
-  }
-}, 1000);
+//   var date_time = moment(Date.now)
+//   if(u_time.hour <= date_time.hour && u_time.minute <= date_time.minute) {
+//     request('0.0.0.0:6525/yak', function (error, response, body) {
+//       //callback
+//     });
+//   }
+// }, 1000);
 
 
 

@@ -2,7 +2,7 @@ const { Router } = require('express');
 const { NotFound } = require('http-errors');
 const { sequelize } = require('../models');
 
-const router = express.Router();
+const router = Router();
 const users = require('./users');
 const pillinfos = require('./pillinfos');
 

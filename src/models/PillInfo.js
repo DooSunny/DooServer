@@ -5,6 +5,11 @@ module.exports = function(sequelize, DataTypes) {
 			primaryKey: true,
 			autoIncrement: true,
 		},
+		nickname:{
+			type: DataTypes.STRING,
+			allowNull: false,
+			defaultValue: '약'
+		},
 		time:{
 			type:DataTypes.DATE,
 		},

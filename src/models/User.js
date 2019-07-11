@@ -17,7 +17,9 @@ module.exports = function(sequelize, DataTypes) {
 
   User.associate = function (models) {
     User.hasMany(models.PillHistories, {foreignKey: 'code', sourceKey: 'code'})
-    User.hasMany(models.PillInfo, {foreignKey: 'code'})
+    User.hasMany(models.PillInfo, {foreignKey: 'code'});
+
+    User.belongsToMany(User, {through: 'UserFavorites', as: 'favorites'});
   }
   return User;
 };
